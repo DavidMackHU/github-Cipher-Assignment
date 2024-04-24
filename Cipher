@@ -1,30 +1,29 @@
-def caesar_cipher_decrypt(encrypted_text, shift):
-    """
-    Decrypts the given text encrypted with the Caesar Cipher using the specified shift.
-
-    Parameters:
-    - encrypted_text: The text to be decrypted.
-    - shift: The number of positions each letter was shifted during encryption.
-
-    Returns:
-    - decrypted_text: The decrypted text.
-    """
-    decrypted_text = ""
-    for char in encrypted_text:
-        if char.isalpha():  # Check if the character is an alphabet letter
-            if char.isupper():  # For uppercase letters
-                decrypted_text += chr((ord(char) - 65 - shift) % 26 + 65)
-            else:  # For lowercase letters
-                decrypted_text += chr((ord(char) - 97 - shift) % 26 + 97)
+def encrypt(text, shift):
+    encryptedText = ""
+    for char in text:
+        if char.isalpha():
+            if char.isupper():
+                encryptedText += chr((ord(char) - 65 + shift) % 26 + 65)
+            else:
+                encryptedText += chr((ord(char) - 97 + shift) % 26 + 97)
         else:
-            decrypted_text += char  # Preserve non-alphabetic characters
-    return decrypted_text
+            encryptedText += char
+    return encryptedText
 
+def decrypt(text, shift):
+    shift = shift * -1
+    decryptedText = ""
+    for char in text:
+        if char.isalpha():
+            if char.isupper():
+                decryptedText += chr((ord(char) - 65 + shift) % 26 + 65)
+            else:
+                decryptedText += chr((ord(char) - 97 + shift) % 26 + 97)
+        else:
+            decryptedText += char
+    return decryptedText
 
-# Example usage:
-text = "Hello, World!"
-shift = 3
-encrypted_text = caesar_cipher_encrypt(text, shift)
-print("Encrypted:", encrypted_text)
-decrypted_text = caesar_cipher_decrypt(encrypted_text, shift)
-print("Decrypted:", decrypted_text)
+#Example of how my code works
+shift = 1
+print(encrypt("AaZz", shift))
+print(decrypt("BbAa", shift))
